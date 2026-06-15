@@ -33,7 +33,7 @@ Slew time as a symbolic function of four parameters: angle $\Theta$, inertia $I$
 Realistic parameters for a high-resolution agile imaging platform (500 kg class, reaction wheels, star tracker rate limit). Slew times evaluated for typical cross-track retargeting angles (5°–45°).
 
 ### 7. Code Generation: Deployable Slew Planner
-Convert symbolic expressions into optimized MATLAB functions via `matlabFunction`. The generated slew planner accepts vectorized inputs, so you can evaluate hundreds of target-to-target slew times in one call. The angle profile is then fed into Aerospace Toolbox `quaternion` objects to produce a full 3D attitude trajectory, demonstrating the symbolic-to-simulation bridge.
+Convert symbolic expressions into optimized MATLAB&reg; functions via `matlabFunction`. The generated slew planner accepts vectorized inputs, so you can evaluate hundreds of target-to-target slew times in one call. The angle profile is then fed into Aerospace Toolbox&trade; `quaternion` objects to produce a full 3D attitude trajectory, demonstrating the symbolic-to-simulation bridge.
 
 - `matlabFunction` — generates `slewTimeKernels.m`, `slewTime.m`, `slewRateProfileTrap.m`, `slewRateProfileBB.m`
 - `quaternion`, `rotatepoint` — Aerospace Toolbox 3D attitude propagation from symbolic eigenaxis profile
@@ -74,7 +74,7 @@ The generated functions are building blocks for production engineering workflows
 ### Aerospace Toolbox: 3D Attitude Propagation
 The example demonstrates this directly: the symbolically-derived angle profile is converted into a quaternion trajectory using Aerospace Toolbox's `quaternion` objects and `rotatepoint`. This bridges 1D eigenaxis planning (symbolic, parametric) with full 3D attitude simulation (numeric, mission-specific). The generated `slewRateProfileTrap.m` or `slewRateProfileBB.m` can produce reference rate commands for any ADCS simulation built on Aerospace Toolbox quaternion kinematics.
 
-### Simulink / Simscape: ADCS Simulation
+### Simulink&reg; / Simscape&trade;: ADCS Simulation
 The generated `slewRateProfileTrap.m` and `slewRateProfileBB.m` drop directly into a MATLAB Function block as reference trajectory generators for closed-loop ADCS simulation. The slew planner provides the commanded attitude profile; Simulink models the reaction wheel dynamics, flex-body coupling, and control loop that tracks it. Because the profile functions are generated from symbolic expressions, updating the derivation (e.g., adding a jerk limit) automatically updates the Simulink reference.
 
 ### Mission Planning & Scheduling Tools
@@ -87,9 +87,9 @@ The generated `slewRateProfileTrap.m` and `slewRateProfileBB.m` drop directly in
 
 ### Requirements
 
-- MATLAB R2024b or later
-- Symbolic Math Toolbox
-- Aerospace Toolbox (for quaternion attitude propagation section)
+- [MATLAB](https://www.mathworks.com/products/matlab.html) R2024b or later
+- [Symbolic Math Toolbox&trade;](https://www.mathworks.com/products/symbolic.html)
+- [Aerospace Toolbox](https://www.mathworks.com/products/aerospace-toolbox.html) (for quaternion attitude propagation section)
 
 ### Running the Example
 

@@ -2,7 +2,7 @@
 %[text] Derive the joint radar-communications tradeoff for an OFDM ISAC waveform from first principles, then validate the design with waveform generation, spectral analysis, range-Doppler processing, and EVM measurement.
 %[text] **Workflow:** First-principles physics $\\to$ symbolic ambiguity function $\\to$ Pareto frontier (sensing vs. comms) $\\to$ optimal pilot/data allocation $\\to$ waveform generation $\\to$ spectral verification $\\to$ range-Doppler map $\\to$ EVM
 %[text] For a full system-level MIMO-OFDM ISAC simulation, see [Integrated Sensing and Communication II: Communication-Centric Approach Using MIMO-OFDM](https://www.mathworks.com/help/phased/ug/integrated-sensing-and-communication-2-communication-centric-approach-using-mimo-ofdm.html).
-%[text] Requires: Symbolic Math Toolbox, Communications Toolbox, Signal Processing Toolbox
+%[text] Requires: Symbolic Math Toolbox™, Communications Toolbox™, Signal Processing Toolbox™
 %%
 %[text] ## 1. OFDM Signal Model
 %[text] An OFDM waveform partitions a wideband channel into $N$ narrowband subcarriers spaced by $\\Delta f$. In an ISAC system, some subcarriers carry known pilot symbols (used for radar sensing) and others carry random data symbols (used for communications). The split between the two is the fundamental design variable.

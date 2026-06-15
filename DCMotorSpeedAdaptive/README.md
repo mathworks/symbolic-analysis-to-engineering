@@ -1,6 +1,6 @@
 # Adaptive DC Motor Speed Control with Drivetrain Compliance
 
-This example demonstrates how Symbolic Math Toolbox enables physics-aware controller design for automotive applications. A DC motor drives a load through a flexible shaft, creating a 4-state drivetrain model whose torsional resonance depends on the reflected load inertia $J_L$.
+This example demonstrates how Symbolic Math Toolbox&trade; enables physics-aware controller design for automotive applications. A DC motor drives a load through a flexible shaft, creating a 4-state drivetrain model whose torsional resonance depends on the reflected load inertia $J_L$.
 
 The load inertia varies with operating conditions: full traction with a heavy vehicle gives $J_L \approx 0.5$ kg.m^2, lost traction can drop $J_L$ to about 0.01, and different platforms such as sedans, SUVs, and trucks have different inertia ranges. When $J_L$ changes, the resonance frequency shifts; a controller tuned for one inertia can degrade or excite the resonance at another.
 
@@ -50,7 +50,7 @@ Convert the symbolic gain and reference-scaling expressions into optimized MATLA
 - `ccode` - emits C code for the symbolic gain expressions
 
 ### 7. Simulink Integration
-The generated functions can be called directly from MATLAB Function blocks in Simulink. The estimated load inertia can come from a lookup table, online estimator, or traction control module.
+The generated functions can be called directly from MATLAB&reg; Function blocks in Simulink&reg;. The estimated load inertia can come from a lookup table, online estimator, or traction control module.
 
 ```text
                    J_L_est (from estimator, lookup, or traction module)
@@ -79,10 +79,10 @@ C code equivalents for the gain expressions are available via `ccode()`.
 
 ### Requirements
 
-- MATLAB R2024b or later
-- Symbolic Math Toolbox
-- Control System Toolbox
-- Simulink (for the generated integration model)
+- [MATLAB](https://www.mathworks.com/products/matlab.html) R2024b or later
+- [Symbolic Math Toolbox](https://www.mathworks.com/products/symbolic.html)
+- [Control System Toolbox&trade;](https://www.mathworks.com/products/control.html)
+- [Simulink](https://www.mathworks.com/products/simulink.html) (for the generated integration model)
 
 ### Running the Example
 

@@ -19,13 +19,13 @@ Shannon throughput and spectral efficiency as symbolic functions of *alpha*, usi
 Derive the Cramér-Rao bound on range estimation from the radar SNR expression (`diff`, `simplify`). Both the CRB and the throughput are now closed-form functions of *alpha*. Convert them to callable function handles with `matlabFunction` and `subs`, evaluate at a concrete design point (1024 subcarriers, 30 kHz spacing, 3.5 GHz carrier), and plot the Pareto frontier.
 
 ### 5. Pilot Sequence Design with Number-Theoretic Constraints
-Zadoff-Chu sequences require prime length and a coprime root index. Given a desired pilot count *K = alpha * N*, find the nearest valid length with `prevprime` and `nextprime`, verify the root with `gcd`, and confirm ideal periodic autocorrelation both symbolically (`symsum`) and numerically (`zadoffChuSeq` from Communications Toolbox).
+Zadoff-Chu sequences require prime length and a coprime root index. Given a desired pilot count *K = alpha * N*, find the nearest valid length with `prevprime` and `nextprime`, verify the root with `gcd`, and confirm ideal periodic autocorrelation both symbolically (`symsum`) and numerically (`zadoffChuSeq` from Communications Toolbox&trade;).
 
 ### 6. Convert Symbolic Design to Numerical Simulation
 Extract scalar parameters via `double` and function handles via `matlabFunction` at two operating points: sensing-heavy (*alpha* = 0.75) and comms-heavy (*alpha* = 0.25). Generate OFDM ISAC waveforms using `ofdmmod`, `qammod`, and `zadoffChuSeq` (Communications Toolbox), with per-symbol pseudo-random pilot scrambling to flatten the power spectrum.
 
 ### 7. Spectral Verification
-Measure the power spectral density of both waveforms with `pwelch` and `hamming` (Signal Processing Toolbox) and overlay the symbolically-predicted occupied bandwidth.
+Measure the power spectral density of both waveforms with `pwelch` and `hamming` (Signal Processing Toolbox&trade;) and overlay the symbolically-predicted occupied bandwidth.
 
 ### 8. Range-Doppler Processing
 Simulate a single target (150 m, 30 m/s). The OFDM radar processor divides the received pilot subcarriers by the known transmitted pilots, then applies IFFT (range) and FFT (Doppler). The resulting range-Doppler maps are shown with the symbolic resolution cell overlaid.
@@ -35,10 +35,10 @@ The pilot subcarriers also serve as channel estimates for the communications rec
 
 ## Requirements
 
-- MATLAB R2024b or later
-- Symbolic Math Toolbox
-- Communications Toolbox
-- Signal Processing Toolbox
+- [MATLAB&reg;](https://www.mathworks.com/products/matlab.html) R2024b or later
+- [Symbolic Math Toolbox&trade;](https://www.mathworks.com/products/symbolic.html)
+- [Communications Toolbox](https://www.mathworks.com/products/communications.html)
+- [Signal Processing Toolbox](https://www.mathworks.com/products/signal.html)
 
 ## Running the Example
 

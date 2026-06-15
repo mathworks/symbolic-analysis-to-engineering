@@ -1,7 +1,7 @@
 %[text] # Symbolic Attitude Dynamics for Spacecraft Slew Maneuver Planning
 %[text] Derive closed-form slew time equations, rate profiles, and pointing sensitivity from Euler's rotational dynamics. Using closed-form parametric analysis answers the "how long does it take to turn?" question without running a simulation for every scenario.
 %[text] **Workflow:** Euler's equations from first principles → eigenaxis reduction to scalar ODE → `dsolve` for exact bang-bang and rate-limited slew profiles → closed-form slew time as a symbolic function of inertia, torque, rate limit, and angle → `matlabFunction` code generation → sensitivity analysis for inertia growth and actuator degradation → pointing budget with `vpa` → mission timeline integration
-%[text] Requires: Symbolic Math Toolbox, Aerospace Toolbox (for quaternion)
+%[text] Requires: Symbolic Math Toolbox™, Aerospace Toolbox™ (for quaternion)
 %%
 %[text] ## 1. Euler's Equations of Rotational Motion
 %[text] For a rigid spacecraft with body-fixed principal axes, the rotational dynamics are governed by Euler's equations. The angular momentum $\\vec{H} = \\mathbf{I}\\vec{\\omega}$ evolves under applied torque $\\vec{\\tau}$:
@@ -182,7 +182,7 @@ for k = 1:length(slew_angles_deg) %[output:group:71dd9007]
 end %[output:group:71dd9007]
 %%
 %[text] ## 7. Code Generation: Deployable Slew Planner
-%[text] Convert the symbolic slew time expressions into optimized MATLAB functions via `matlabFunction`. The piecewise slew time has two regimes (bang-bang and trapezoidal), so generate each branch separately and combine them in a vectorized wrapper that uses logical indexing.
+%[text] Convert the symbolic slew time expressions into optimized MATLAB® functions via `matlabFunction`. The piecewise slew time has two regimes (bang-bang and trapezoidal), so generate each branch separately and combine them in a vectorized wrapper that uses logical indexing.
 t_bb_expr = subs(t_slew_bb_sol, alpha_max, tau_max/I_ax);
 t_trap_expr = subs(t_slew_trap, alpha_max, tau_max/I_ax);
 Theta_cross_expr = I_ax * omega_max^2 / tau_max;

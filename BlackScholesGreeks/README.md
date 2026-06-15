@@ -47,7 +47,7 @@ A two-asset portfolio's full cross-Greek matrix (4×4: sensitivities of Delta an
 - `assume` — correlation bounds $-1 < \rho < 1$
 
 ### 8. Code Generation: Deploy to Pricing Engine
-Convert symbolic Greek expressions into optimized MATLAB functions via `matlabFunction`. Three function files are generated: first-order Greeks, second-order Greeks, and near-ATM Taylor approximations.
+Convert symbolic Greek expressions into optimized MATLAB&reg; functions via `matlabFunction`. Three function files are generated: first-order Greeks, second-order Greeks, and near-ATM Taylor approximations.
 
 - `matlabFunction` — generates `bsGreeks.m`, `bsGreeksSecondOrder.m`, `bsGreeksATM.m`
 
@@ -57,7 +57,7 @@ Evaluate the exact Greeks across the full $(S, \tau)$ surface using realistic eq
 ### 10. Taylor Approximation Accuracy
 Compare exact Delta against the near-ATM Taylor approximation across moneyness. The polynomial is extremely accurate within $\pm5\%$ of ATM, where most hedging activity occurs.
 
-### 11. Validate Against Financial Toolbox
+### 11. Validate Against Financial Toolbox&trade;
 All symbolic Greeks validated against `blsprice`, `blsdelta`, `blsgamma`, `blsvega`, `blstheta`, `blsrho` to confirm the derivation is correct end-to-end.
 
 ### 12. Monte Carlo with Exact Greeks
@@ -82,9 +82,9 @@ All functions accept vectorized inputs. C code equivalents are available via `cc
 
 ### Requirements
 
-- MATLAB R2024b or later
-- Symbolic Math Toolbox
-- Financial Toolbox (for validation in Section 11 only)
+- [MATLAB](https://www.mathworks.com/products/matlab.html) R2024b or later
+- [Symbolic Math Toolbox&trade;](https://www.mathworks.com/products/symbolic.html)
+- [Financial Toolbox](https://www.mathworks.com/products/finance.html) (for validation in Section 11 only)
 
 ### Running the Example
 

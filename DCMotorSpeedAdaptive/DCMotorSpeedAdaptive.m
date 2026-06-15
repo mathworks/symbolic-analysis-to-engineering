@@ -1,11 +1,11 @@
 %[text] # Adaptive DC Motor Speed Control with Drivetrain Compliance
-%[text] This example demonstrates how Symbolic Math Toolbox enables physics-aware controller design for automotive applications. A DC motor drives a load through a flexible shaft, creating a 4-state drivetrain model. The shaft compliance (stiffness and damping) introduces a torsional resonance whose frequency depends on the load inertia $J\_L$.
+%[text] This example demonstrates how Symbolic Math Toolbox™ enables physics-aware controller design for automotive applications. A DC motor drives a load through a flexible shaft, creating a 4-state drivetrain model. The shaft compliance (stiffness and damping) introduces a torsional resonance whose frequency depends on the load inertia $J\_L$.
 %[text] The load inertia $J\_L$ (reflected through the drivetrain) varies with operating conditions:
 %[text] - Full traction, heavy vehicle: $J\_L \\approx 0.5$ kg·m² -- vehicle mass coupled through wheels
 %[text] - Lost traction: $J\_L$ drops to ~0.01 -- wheel decouples from vehicle mass
 %[text] - Different platforms (sedan, SUV, truck) have different $J\_L$ ranges \
 %[text] When $J\_L$ changes, the torsional resonance frequency shifts. A controller tuned for one $J\_L$ degrades or even excites the resonance at another. By generating a controller function while keeping $J\_L$ symbolic throughout the design, we can obtain state feedback gains $K(J\_L)$ that adapt to any inertia, no re-tuning needed.
-%[text] Requires: Symbolic Math Toolbox, Control System Toolbox
+%[text] Requires: Symbolic Math Toolbox, Control System Toolbox™
 %%
 %[text] ## 1. Symbolic System Modeling
 %[text] Four states model the motor-shaft-load drivetrain: motor speed $\\omega\_m$, armature current $i$, shaft twist angle $\\Delta\\theta$, and load speed $\\omega\_L$. Input: armature voltage $V$. Output: load speed $\\omega\_L$. The flexible shaft coupling (stiffness $K\_s$, damping $C\_s$) between motor and load creates a torsional resonance, which is the key dynamic that shifts with $J\_L$.
@@ -177,7 +177,7 @@ grid on %[output:8d864489]
 %[text] **Note on actuator saturation:** In practice, the armature voltage $V$ is limited by the power electronics (e.g., 48 V). When the fixed-gain controller excites the resonance, the voltage swings grow, making saturation more likely, further degrading performance beyond this linear analysis. A production controller would include voltage limiting and anti-windup.
 %%
 %[text] ## 5. Code Generation: Deployable Controller Functions
-%[text] Generate MATLAB and C code from the symbolic expressions for use in simulation. These functions take $J\_L$ as input and return the correct gains.
+%[text] Generate MATLAB® and C code from the symbolic expressions for use in simulation. These functions take $J\_L$ as input and return the correct gains.
 matlabFunction(K_of_JL, 'File', 'controllerGains', 'Vars', {J_L}, ...
     'Outputs', {'K'});
 matlabFunction(Nbar_of_JL, 'File', 'referenceScaling', 'Vars', {J_L}, ...
@@ -190,7 +190,7 @@ type referenceScaling.m %[output:10fea510]
 fprintf('\n--- C code for K(J_L) ---\n') %[output:84b3b82a]
 ccode(K_of_JL) %[output:6681e288]
 %%
-%[text] ## 6. Simulink Integration
+%[text] ## 6. Simulink® Integration
 %[text] The generated functions can be called directly from MATLAB Function blocks in Simulink. The model architecture:
 %[text] ```
 %[text]                    J_L_est (from estimator, lookup, or traction module)

@@ -1,7 +1,7 @@
 %[text] # Black-Scholes Greeks from First Principles
 %[text] Exact analytical sensitivities for options pricing, from no-arbitrage derivation through symbolic PDE solution to deployable Greek functions.
 %[text] **Workflow:** Ito's lemma → Black-Scholes PDE → closed-form solution → exact Greeks → near-ATM Taylor expansions → code generation → validation
-%[text] Requires: Symbolic Math Toolbox, Financial Toolbox
+%[text] Requires: Symbolic Math Toolbox™, Financial Toolbox™
 %%
 %[text] ## 1. Geometric Brownian Motion and Ito's Lemma
 %[text] A stock price $S$ follows geometric Brownian motion under the physical measure:
@@ -153,7 +153,7 @@ disp('Cross-Greek Jacobian structure (4x4):') %[output:6ca0cc1e]
 disp(size(J_cross)) %[output:3888b220]
 %%
 %[text] ## 8. Code Generation — Deploy to Pricing Engine
-%[text] Convert the symbolic Greeks to optimized MATLAB functions to deploy directly into pricing engines and Monte Carlo.
+%[text] Convert the symbolic Greeks to optimized MATLAB® functions to deploy directly into pricing engines and Monte Carlo.
 %[text] ### Generate Vectorized Greek Functions
 matlabFunction(C_BS, Delta_call, Gamma_call, Vega_call, Theta_call, Rho_call, ...
     'File', 'bsGreeks', ...
