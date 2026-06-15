@@ -1,0 +1,6 @@
+# Generated at runtime by matlabFunction
+slewTime.m
+slewTimeKernels.m
+slewRateProfileTrap.m
+slewRateProfileBB.m
+slewTimeSensitivity.m

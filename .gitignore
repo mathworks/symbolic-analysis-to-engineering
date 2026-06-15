@@ -1,0 +1,23 @@
+# MATLAB autosave and temporary files
+*.asv
+*.m~
+*.autosave
+
+# Simulink generated artifacts
+slprj/
+*.slxc
+
+# Code generation
+codegen/
+
+# MEX files
+*.mex*
+
+# MATLAB app packaging
+*.mlappinstall
+*.mltbx
+
+# OS files
+Thumbs.db
+.DS_Store
+
