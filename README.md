@@ -1,4 +1,4 @@
-# From First Principles to Engineering Workflows
+# From First Principles to Engineering Workflows with Symbolic Math Toolbox
 
 [![View on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/)
 [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/)
@@ -45,4 +45,4 @@ Some examples generate additional `.m` files at runtime via `matlabFunction`. Th
 
 ## License
 
-See [LICENSE](LICENSE) for details. Copyright (c) 2026, The MathWorks, Inc.
+See [license.txt](license.txt) for details. Copyright (c) 2026, The MathWorks, Inc.
