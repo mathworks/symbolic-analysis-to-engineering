@@ -7,6 +7,8 @@ Application examples that show how to get started with [Symbolic Math Toolbox&tr
 
 Each example is self-contained and runs as a MATLAB Live Script.
 
+Follow for updates when new examples are added.
+
 ## Examples
 
 | Example | Domain | Description | Other Toolboxes |
