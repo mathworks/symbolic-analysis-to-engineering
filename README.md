@@ -1,7 +1,6 @@
 # From First Principles to Engineering Workflows with Symbolic Math Toolbox
 
-[![View on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/)
-[![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/)
+[![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=mathworks/symbolic-analysis-to-engineering)
 
 Application examples that show how to get started with [Symbolic Math Toolbox&trade;](https://www.mathworks.com/products/symbolic.html) for first-principles analysis and to re-use this work in downstream numerical workflows. Start by deriving closed-form models, perform parameter sweeps and linearize, then generate MATLAB&reg; functions, Simulink&reg; function blocks, or Simscape&trade; equations for use in engineering workflows.
 
