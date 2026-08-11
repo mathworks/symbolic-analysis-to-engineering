@@ -1,4 +1,6 @@
 %% buildSimulinkModel
+%     Copyright 2026 The MathWorks, Inc.
+%
 % Creates a Simulink model demonstrating the adaptive DC motor speed
 % controller with a traction-loss scenario.
 %

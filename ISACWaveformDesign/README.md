@@ -2,12 +2,19 @@
 
 OFDM ISAC waveform design for a monostatic SISO radar-communications system operating at 3.5 GHz with 30.72 MHz bandwidth (1024 subcarriers, 30 kHz spacing). The pilot fraction *alpha* - the allocation of subcarriers between Zadoff-Chu radar pilots and QAM data - controls the sensing-vs-throughput tradeoff.
 
-The symbolic analysis derives the cross-ambiguity function, Cramér-Rao bound on range estimation, and Shannon throughput as closed-form expressions in *alpha* and the waveform parameters. These are converted to function handles via `matlabFunction`, producing a Pareto frontier that maps the full design space without Monte Carlo sweeps or repeated simulation. Scalar design parameters (ZC sequence length, root index, subcarrier allocations) are extracted via `double` at two operating points and fed directly into waveform generation, spectral analysis, range-Doppler processing, and pilot-based equalization with EVM measurement, validating the symbolic predictions against the numerical results.
+This example shows how closed-form symbolic analysis improves an engineering workflow before simulation. It derives the cross-ambiguity function, Cramer-Rao bound on range estimation, and Shannon throughput as expressions in *alpha* and the waveform parameters. Those expressions are evaluated across the design space, then two operating points are carried into waveform generation, spectral analysis, range-Doppler processing, and pilot-based equalization with EVM measurement.
+
+## Why Symbolic Analysis Matters
+
+- One derivation gives the full sensing-vs-throughput trade space, instead of one simulation result at a time.
+- The closed-form expressions expose which parameters control resolution, estimation accuracy, and data rate.
+- `matlabFunction` turns the symbolic CRB and throughput into fast numeric evaluators for Pareto exploration.
+- The numerical waveform sections validate the assumptions and show how the design choice affects PSD, range-Doppler response, and EVM.
 
 ## Example Outline
 
 ### 1. OFDM Signal Model
-Symbolic declaration of the signal model: *N* subcarriers, pilot fraction *alpha*, subcarrier spacing *Delta_f*, frame structure with *M* OFDM symbols.
+Symbolic declaration of the signal model: *N* subcarriers, pilot fraction *alpha*, subcarrier spacing *Delta_f*, and frame structure with *M* OFDM symbols.
 
 ### 2. Radar Performance: Cross-Ambiguity Function
 Derive the frequency-domain and time-domain ambiguity functions as closed-form Dirichlet kernels via `symsum` and `simplify`. The resulting expressions give range and Doppler resolution as explicit functions of the design parameters.
@@ -16,35 +23,37 @@ Derive the frequency-domain and time-domain ambiguity functions as closed-form D
 Shannon throughput and spectral efficiency as symbolic functions of *alpha*, using the same signal model.
 
 ### 4. The ISAC Tradeoff: Pareto Frontier
-Derive the Cramér-Rao bound on range estimation from the radar SNR expression (`diff`, `simplify`). Both the CRB and the throughput are now closed-form functions of *alpha*. Convert them to callable function handles with `matlabFunction` and `subs`, evaluate at a concrete design point (1024 subcarriers, 30 kHz spacing, 3.5 GHz carrier), and plot the Pareto frontier.
+Derive the Cramer-Rao bound on range estimation from the radar SNR and pilot RMS bandwidth using `subs` and `simplify`. The CRB uses the already-integrated radar SNR and the pilot spacing `(N/K)*Delta_f`, so the range variance scales primarily with total radar SNR for fixed occupied bandwidth. Convert the CRB and throughput to callable function handles with `matlabFunction`, evaluate a 5G-style design point, and plot the Pareto frontier.
 
 ### 5. Pilot Sequence Design with Number-Theoretic Constraints
 Zadoff-Chu sequences require prime length and a coprime root index. Given a desired pilot count *K = alpha * N*, find the nearest valid length with `prevprime` and `nextprime`, verify the root with `gcd`, and confirm ideal periodic autocorrelation both symbolically (`symsum`) and numerically (`zadoffChuSeq` from Communications Toolbox&trade;).
 
 ### 6. Convert Symbolic Design to Numerical Simulation
-Extract scalar parameters via `double` and function handles via `matlabFunction` at two operating points: sensing-heavy (*alpha* = 0.75) and comms-heavy (*alpha* = 0.25). Generate OFDM ISAC waveforms using `ofdmmod`, `qammod`, and `zadoffChuSeq` (Communications Toolbox), with per-symbol pseudo-random pilot scrambling to flatten the power spectrum.
+Select two operating points from the symbolic Pareto view: sensing-heavy (*alpha* = 0.75) and comms-heavy (*alpha* = 0.25). Extract scalar parameters via `double`, then generate OFDM ISAC waveforms using `ofdmmod`, `qammod`, and `zadoffChuSeq`, with per-symbol pseudo-random pilot scrambling to flatten the power spectrum.
 
 ### 7. Spectral Verification
-Measure the power spectral density of both waveforms with `pwelch` and `hamming` (Signal Processing Toolbox&trade;) and overlay the symbolically-predicted occupied bandwidth.
+Measure the power spectral density of both waveforms with `pwelch` and `hamming` (Signal Processing Toolbox&trade;) and overlay the symbolically predicted occupied bandwidth.
 
 ### 8. Range-Doppler Processing
-Simulate a single target (150 m, 30 m/s). The OFDM radar processor divides the received pilot subcarriers by the known transmitted pilots, then applies IFFT (range) and FFT (Doppler). The resulting range-Doppler maps are shown with the symbolic resolution cell overlaid.
+Simulate a single target (150 m, 30 m/s). The OFDM radar processor divides the received pilot subcarriers by the known transmitted pilots, interpolates the estimates onto the uniform OFDM subcarrier grid, then applies IFFT (range) and shifted FFT (Doppler). The resulting range-Doppler maps are shown with the symbolically predicted resolution cell overlaid.
 
 ### 9. EVM Measurement for Communications Quality
-The pilot subcarriers also serve as channel estimates for the communications receiver. Per-symbol channel estimation on the pilots is interpolated to the data subcarriers (`interp1`) and used to equalize the Doppler-induced phase rotation. EVM is measured with `comm.EVM` (Communications Toolbox) at both operating points: the sensing-heavy design equalizes better because the denser pilot grid produces more accurate interpolation.
+The pilot subcarriers also serve as channel estimates for the communications receiver. Per-symbol channel estimation on the pilots is interpolated to the data subcarriers (`interp1`) and used to equalize the Doppler-induced phase rotation. EVM is measured with `comm.EVM` at both operating points.
 
-## Requirements
+## Quick Start
+
+### Requirements
 
 - [MATLAB&reg;](https://www.mathworks.com/products/matlab.html) R2024b or later
 - [Symbolic Math Toolbox&trade;](https://www.mathworks.com/products/symbolic.html)
 - [Communications Toolbox](https://www.mathworks.com/products/communications.html)
 - [Signal Processing Toolbox](https://www.mathworks.com/products/signal.html)
 
-## Running the Example
+### Running the Example
 
 1. Open MATLAB and navigate to this directory
 2. Open **`ISACWaveformDesign.m`** as a Live Script
-3. Run section by section, or run all — the example is self-contained
+3. Run section by section, or run all
 
 ## Files
 
@@ -55,3 +64,5 @@ The pilot subcarriers also serve as channel estimates for the communications rec
 ## Related
 
 For a full system-level MIMO-OFDM ISAC simulation building on these concepts, see [Integrated Sensing and Communication II: Communication-Centric Approach Using MIMO-OFDM](https://www.mathworks.com/help/phased/ug/integrated-sensing-and-communication-2-communication-centric-approach-using-mimo-ofdm.html).
+
+Copyright 2026 The MathWorks, Inc.

@@ -57,7 +57,7 @@ Evaluate the exact Greeks across the full $(S, \tau)$ surface using realistic eq
 ### 10. Taylor Approximation Accuracy
 Compare exact Delta against the near-ATM Taylor approximation across moneyness. The polynomial is extremely accurate within $\pm5\%$ of ATM, where most hedging activity occurs.
 
-### 11. Validate Against Financial Toolbox
+### 11. Validate Against Financial Toolbox&trade;
 All symbolic Greeks validated against `blsprice`, `blsdelta`, `blsgamma`, `blsvega`, `blstheta`, `blsrho` to confirm the derivation is correct end-to-end.
 
 ### 12. Monte Carlo with Exact Greeks
@@ -84,7 +84,7 @@ All functions accept vectorized inputs. C code equivalents are available via `cc
 
 - [MATLAB](https://www.mathworks.com/products/matlab.html) R2024b or later
 - [Symbolic Math Toolbox&trade;](https://www.mathworks.com/products/symbolic.html)
-- [Financial Toolbox&trade;](https://www.mathworks.com/products/finance.html) (for validation in Section 11 only)
+- [Financial Toolbox](https://www.mathworks.com/products/finance.html) (for validation in Section 11 only)
 
 ### Running the Example
 
@@ -102,3 +102,5 @@ The generated functions (`bsGreeks.m`, `bsGreeksSecondOrder.m`, `bsGreeksATM.m`)
 | `bsGreeks.m` | Generated at runtime. First-order Greeks (Price, Delta, Gamma, Vega, Theta, Rho). |
 | `bsGreeksSecondOrder.m` | Generated at runtime. Second-order Greeks (Vanna, Volga, Charm, Speed). |
 | `bsGreeksATM.m` | Generated at runtime. Near-ATM Taylor approximations. |
+
+Copyright 2026 The MathWorks, Inc.
