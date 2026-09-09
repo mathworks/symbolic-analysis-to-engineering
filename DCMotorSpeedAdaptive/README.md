@@ -20,8 +20,8 @@ The flexible shaft coupling uses stiffness $K_s$ and damping $C_s$, which create
 Known motor and shaft constants are substituted while $J_L$ remains symbolic. The example sweeps $J_L$ from 0.01 to 0.5 kg.m^2 and shows two effects: open-loop poles migrate in the complex plane, and the torsional resonance peak shifts in the frequency response from $V$ to $\omega_L$.
 
 - `subs` - selectively substitute fixed motor and shaft parameters
-- `eig` - compute pole migration across the inertia range
-- `ss`, `bode` - visualize the load-speed frequency response
+- `ss`, `stack`, `SamplingGrid` - construct parameterized LTI model arrays
+- `pzplot`, `bodemag` - visualize pole migration and load-speed frequency response from the parameterized LTI models
 
 ### 3. State Feedback Gains as Functions of $J_L$
 The control law is $u = -Kx + \bar{N}r$. Desired closed-loop poles are set at -100, -15, and $-8 \pm 8i$, giving a fast electrical mode, a moderate real pole, and a dominant complex pair with about 0.5 seconds settling.
@@ -29,27 +29,29 @@ The control law is $u = -Kx + \bar{N}r$. Desired closed-loop poles are set at -1
 Because the system matrix contains symbolic $J_L$, solving the pole placement equations produces $K = [k_1, k_2, k_3, k_4]$ as functions of $J_L$. The precompensator $\bar{N}(J_L)$ is computed for zero steady-state load-speed error, yielding the complete adaptive law $u = -K(J_L)x + \bar{N}(J_L)r$.
 
 - `det` - form the controllability determinant and characteristic equation
+- `ctrb`, `rank` - verify controllability numerically at representative load inertias
 - `solve` - compute symbolic pole placement gains
 - `simplify`, `subs` - reduce gains after substituting fixed physical constants
 
-### 4. Verification: Desired Poles Are Achieved for Any $J_L$
-The closed-loop matrix $A - BK(J_L)$ is evaluated at $J_L = 0.01$, 0.05, 0.2, and 0.5. The computed eigenvalues match the desired pole set for each case, and step responses show consistent settling behavior across the full inertia range.
+### 4. Verification and Actuator Feasibility
+The closed-loop matrix $A - BK(J_L)$ is evaluated at $J_L = 0.01$, 0.05, 0.2, and 0.5. The computed poles match the desired pole set for each case, and the unconstrained linear step responses show consistent settling behavior across the full inertia range.
 
-- `eig` - verify closed-loop poles after substituting each inertia
-- `step` - compare load-speed tracking responses
+The reference-to-current and reference-to-voltage transfer functions are then derived symbolically. Their common denominator contains the assigned closed-loop poles, while their numerators expose how actuator demand depends on $J_L$. The exact polynomial coefficients are converted to numerical transfer functions for the parameter sweep.
 
-### 5. Fixed vs. Adaptive Gains
-A fixed-gain controller designed for SUV full traction ($J_L = 0.2$) is applied after traction loss ($J_L = 0.02$). The fixed controller fails to suppress the shifted torsional resonance, while gains evaluated at the actual inertia maintain the desired response.
+Peak armature voltage and current are calculated per unit speed command across the inertia range. These transient maxima are evaluated numerically because the extrema of the mixed exponential and oscillatory responses do not have a useful general closed form. A 48 V bus and an illustrative 40 A current limit define a feasible reference-step envelope, making clear that identical ideal poles do not guarantee physically achievable performance.
 
-The live script also notes that real actuator voltage limits, such as a 48 V armature supply, would make resonance-driven voltage swings more damaging in production unless voltage limiting and anti-windup are included.
+- `pole`, `esort` - verify and order closed-loop poles after substituting each inertia
+- `stepplot` - compare load-speed tracking responses directly from the LTI model array
+- `simplifyFraction`, `numden`, `coeffs` - derive and expose the exact actuator-demand transfer functions
+- `matlabFunction`, `tf`, `step`, `table` - convert the symbolic results for numerical peak-demand analysis
 
-### 6. Code Generation: Simulatable Controller Functions
+### 5. Code Generation: Simulatable Controller Functions
 Convert the symbolic gain and reference-scaling expressions into optimized MATLAB functions. These functions take $J_L$ as input and return the correct controller parameters for simulation.
 
 - `matlabFunction` - generates `controllerGains.m` and `referenceScaling.m`
 - `ccode` - emits C code for the symbolic gain expressions
 
-### 7. Simulink Integration
+### 6. Simulink Integration
 The generated functions can be called directly from MATLAB&reg; Function blocks in Simulink&reg;. The estimated load inertia can come from a lookup table, online estimator, or traction control module.
 
 ```text
