@@ -4,7 +4,7 @@
 
 Application examples that show how to get started with [Symbolic Math Toolbox&trade;](https://www.mathworks.com/products/symbolic.html) for first-principles analysis and to re-use this work in downstream numerical workflows. Start by deriving closed-form models, perform parameter sweeps and linearize, then generate MATLAB&reg; functions, Simulink&reg; function blocks, or Simscape&trade; equations for use in engineering workflows.
 
-Each example is self-contained and runs as a MATLAB Live Script.
+Each example is self-contained and runs as a MATLAB live script.
 
 Follow for updates when new examples are added.
 
