@@ -25,8 +25,6 @@ Follow for updates when new examples are added.
 | [RadarKnifeEdgeDiffraction](RadarKnifeEdgeDiffraction/) | Wireless | Radar target tracking with Fresnel knife-edge diffraction channel model — over-the-horizon propagation via symbolic Fresnel integrals, waveform design, signal processing, and target classification | [Signal Processing Toolbox](https://www.mathworks.com/products/signal.html) |
 | [SerialManipulatorDynamics](SerialManipulatorDynamics/) | Robotics | Serial manipulator kinematics and dynamics — DH forward/inverse kinematics, geometric Jacobian, Lagrangian dynamics (M, C, G decomposition), computed-torque controller, and tracking simulation | [Robotics System Toolbox&trade;](https://www.mathworks.com/products/robotics.html) |
 
-## The Common Pattern
-
 Each example follows the same workflow:
 
 1. **Model from first principles** — declare physical parameters as symbolic variables and derive the governing equations
