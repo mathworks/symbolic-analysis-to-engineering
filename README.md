@@ -6,7 +6,7 @@ Application examples that show how to get started with [Symbolic Math Toolbox&tr
 
 Each example is self-contained and runs as a MATLAB live script.
 
-Follow for updates when new examples are added.
+To learn or refresh your knowledge of Symbolic Math Toolbox, there is free self-paced [onramp training](https://matlabacademy.mathworks.com/details/symbolic-math-onramp/symbolic).
 
 ## Examples
 
